@@ -131,6 +131,23 @@ public class Application {
 }
 ```
 
+在Spring Boot 的Configuration中添加SqlSessionFactory的bean
+
+@Configuration
+public class MybatisPlusConfig{
+    @Autowired
+    DataSource dataSource;
+
+    @Bean
+    public SqlSessionFactory sqlSessionFactory() throws Exception {
+        MybatisSqlSessionFactoryBean factoryBean = new MybatisSqlSessionFactoryBean();
+        factoryBean.setDataSource(dataSource);
+        factoryBean.setVfs(SpringBootVFS.class);
+        return factoryBean.getObject();
+    }
+}
+
+
 ## 编码
 
 编写实体类 `User.java`（此处使用了 [Lombok](https://www.projectlombok.org/) 简化代码）
